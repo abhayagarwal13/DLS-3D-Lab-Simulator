@@ -1,4 +1,4 @@
-import { ArrowLeft, Atom, Bot, ClipboardCheck, Lightbulb, RefreshCw, UserRoundPlus } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Atom, ClipboardCheck, Lightbulb, Minus, RefreshCw, UserRoundPlus, X } from 'lucide-react';
 
 export default function StudentHUD({ state, actions, activeLab, onExit }) {
   const { sample, weighed, submerged, density, score, teacherVisible, hintCount, moduleStep } = state;
@@ -122,9 +122,22 @@ export default function StudentHUD({ state, actions, activeLab, onExit }) {
       )}
 
       {(teacherVisible || hintCount > 0) && (
-        <div className="ai-teacher-bubble">
-          <span><Bot size={18} /> AI Teacher</span>
-          <strong>{aiMessage}</strong>
+        <div className="ai-guide-panel">
+          <img src="./DLS_Teacher.png" alt="DLS AI Teacher" className="ai-guide-teacher" />
+          <div className="ai-guide-window">
+            <div className="ai-guide-controls" aria-hidden="true">
+              <Minus size={24} />
+              <X size={24} />
+            </div>
+            <div className="ai-guide-copy">
+              <span>AI Teacher</span>
+              <strong>{aiMessage}</strong>
+            </div>
+            <button type="button" className="ai-guide-continue" onClick={() => actions.setHintCount(hintCount + 1)}>
+              Continue
+              <ArrowRight size={22} />
+            </button>
+          </div>
         </div>
       )}
 

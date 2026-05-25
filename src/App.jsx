@@ -68,7 +68,7 @@ export default function App() {
   const [selectedObject, setSelectedObject] = useState('aluminum');
   const [weighed, setWeighed] = useState(false);
   const [submerged, setSubmerged] = useState(false);
-  const [teacherVisible, setTeacherVisible] = useState(false);
+  const [teacherVisible, setTeacherVisible] = useState(true);
   const [hintCount, setHintCount] = useState(0);
   const [reportOpen, setReportOpen] = useState(false);
   const [draggingSample, setDraggingSample] = useState(false);
@@ -92,7 +92,7 @@ export default function App() {
     setSubmerged(false);
     setSamplePlacement('tray');
     setHintCount(0);
-    setTeacherVisible(false);
+    setTeacherVisible(true);
     setReportOpen(false);
     setModuleStep(0);
   };
@@ -143,7 +143,7 @@ export default function App() {
     setActiveLabId(labId);
     setModuleStep(0);
     setHintCount(0);
-    setTeacherVisible(false);
+    setTeacherVisible(true);
     setReportOpen(false);
     setScreen('lab');
   };

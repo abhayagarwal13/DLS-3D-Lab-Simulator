@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { AdaptiveDpr, Environment, OrbitControls, PerspectiveCamera, Preload, SoftShadows } from '@react-three/drei';
 import { Bloom, EffectComposer, SMAA, Vignette } from '@react-three/postprocessing';
@@ -39,9 +38,7 @@ export default function LabScene({ state, actions, activeLab }) {
       ) : (
         <ExperimentStation lab={activeLab} state={state} actions={actions} />
       )}
-      <Suspense fallback={null}>
-        <TeacherSpawn visible={state.teacherVisible} hintCount={state.hintCount} />
-      </Suspense>
+      <TeacherSpawn visible={state.teacherVisible} hintCount={state.hintCount} />
 
       <Environment preset="city" />
       <EffectComposer multisampling={0}>
