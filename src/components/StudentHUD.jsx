@@ -159,10 +159,10 @@ export default function StudentHUD({ state, actions, activeLab, onExit }) {
           <img src="./DLS_Teacher.png" alt="DLS AI Teacher" className="ai-guide-teacher" />
           <div className="ai-guide-window">
             <div className="ai-guide-controls">
-              <button type="button" aria-label={guideMinimized ? 'Expand AI Teacher guide' : 'Minimize AI Teacher guide'} onClick={() => setGuideMinimized((value) => !value)}>
+              <button type="button" aria-label={guideMinimized ? 'Expand guide panel' : 'Minimize guide panel'} onClick={() => setGuideMinimized((value) => !value)}>
                 {guideMinimized ? <Maximize2 size={22} /> : <Minus size={24} />}
               </button>
-              <button type="button" aria-label="Close AI Teacher guide" onClick={() => { actions.setTeacherVisible(false); setGuideMinimized(false); }}>
+              <button type="button" aria-label="Close guide panel" onClick={() => { actions.setTeacherVisible(false); setGuideMinimized(false); }}>
                 <X size={24} />
               </button>
             </div>
