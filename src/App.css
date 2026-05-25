@@ -1,0 +1,15 @@
+.app-shell {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #071015;
+  color: #eef8ff;
+}
+
+.app-shell.home-shell {
+  min-height: 100vh;
+  height: auto;
+  overflow: auto;
+  background: #ffffff;
+  color: #0c1429;
+}
