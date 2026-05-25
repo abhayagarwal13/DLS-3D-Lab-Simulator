@@ -2490,3 +2490,15 @@ button {
     height: 96px;
   }
 }
+
+
+/* Keep hints visible above the AI guide instead of behind it. */
+.hint-toast {
+  bottom: 252px;
+  z-index: 23;
+}
+
+.ai-guide-panel.minimized ~ .hint-toast,
+.hint-toast:has(+ .ai-guide-panel.minimized) {
+  bottom: 126px;
+}

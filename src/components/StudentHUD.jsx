@@ -147,7 +147,7 @@ export default function StudentHUD({ state, actions, activeLab, onExit }) {
         </button>
       </aside>
 
-      {hintCount > 0 && !teacherVisible && (
+      {hintCount > 0 && (
         <div className="hint-toast">
           <strong>Hint {hintCount}</strong>
           <span>{isDensityLab ? "Use the equation density = mass / volume. Water displacement gives the object's volume." : currentInstruction}</span>
@@ -162,7 +162,7 @@ export default function StudentHUD({ state, actions, activeLab, onExit }) {
               <button type="button" aria-label={guideMinimized ? 'Expand guide panel' : 'Minimize guide panel'} onClick={() => setGuideMinimized((value) => !value)}>
                 {guideMinimized ? <Maximize2 size={22} /> : <Minus size={24} />}
               </button>
-              <button type="button" aria-label="Close guide panel" onClick={() => { actions.setTeacherVisible(false); setGuideMinimized(false); }}>
+              <button type="button" aria-label="Close guide panel" onClick={() => { actions.setTeacherVisible(false); actions.setHintCount(0); setGuideMinimized(false); }}>
                 <X size={24} />
               </button>
             </div>
