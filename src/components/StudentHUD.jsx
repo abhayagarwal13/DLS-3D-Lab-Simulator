@@ -1,7 +1,10 @@
-import { ArrowLeft, ArrowRight, Atom, ClipboardCheck, Lightbulb, Minus, RefreshCw, UserRoundPlus, X } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { ArrowLeft, ArrowRight, Atom, ClipboardCheck, Lightbulb, Maximize2, Minus, RefreshCw, UserRoundPlus, X } from 'lucide-react';
 
 export default function StudentHUD({ state, actions, activeLab, onExit }) {
   const { sample, weighed, submerged, density, score, teacherVisible, hintCount, moduleStep } = state;
+  const [guideMinimized, setGuideMinimized] = useState(false);
+  const [guideStep, setGuideStep] = useState(0);
   const isDensityLab = activeLab?.id === 'density-lab';
   const moduleSteps = activeLab?.steps ?? [];
   const steps = isDensityLab ? [
@@ -25,6 +28,36 @@ export default function StudentHUD({ state, actions, activeLab, onExit }) {
     : moduleStep >= moduleSteps.length
       ? `Great work. Explain the result: ${activeLab?.objective}`
       : `AI Teacher: ${moduleSteps[moduleStep]} is your next step. Click the floating button in the 3D scene to do it.`;
+  const guidePrompts = useMemo(() => {
+    if (isDensityLab) {
+      return [
+        'Hi, I am your AI Teacher. Pick one sample, then drag it onto the digital scale.',
+        weighed ? 'Good mass measurement. Now drag that same sample into the water tank.' : 'The digital scale will show mass in grams once the sample is on top.',
+        submerged ? 'Great. The water level changed, so now we know the sample volume.' : 'Drop the sample into the tank to measure volume by water displacement.',
+        density ? 'Final result: ' + sample.label + ' has a density of ' + density.toFixed(2) + ' g/mL.' : 'Once mass and volume are measured, the density calculation will appear automatically.',
+      ];
+    }
+
+    return [
+      'Welcome to ' + activeLab?.title + '. I will guide you one step at a time.',
+      moduleStep >= moduleSteps.length ? 'You completed the hands-on sequence. Now explain what changed and why.' : 'Next step: ' + moduleSteps[moduleStep] + '. Use the floating action button in the 3D scene.',
+      activeLab?.objective ?? 'Watch the model closely, then explain the science idea in your own words.',
+    ];
+  }, [activeLab?.objective, activeLab?.title, density, isDensityLab, moduleStep, moduleSteps, sample.label, submerged, weighed]);
+  const visibleGuidePrompt = guidePrompts[Math.min(guideStep, guidePrompts.length - 1)] ?? aiMessage;
+  const continueGuide = () => {
+    setGuideStep((step) => (step < guidePrompts.length - 1 ? step + 1 : 0));
+    if (hintCount === 0) actions.setHintCount(1);
+  };
+
+  useEffect(() => {
+    setGuideStep(0);
+    setGuideMinimized(false);
+  }, [activeLab?.id]);
+
+  useEffect(() => {
+    setGuideStep(0);
+  }, [density, moduleStep, submerged, weighed]);
 
   return (
     <section className="hud">
@@ -114,7 +147,7 @@ export default function StudentHUD({ state, actions, activeLab, onExit }) {
         </button>
       </aside>
 
-      {hintCount > 0 && (
+      {hintCount > 0 && !teacherVisible && (
         <div className="hint-toast">
           <strong>Hint {hintCount}</strong>
           <span>{isDensityLab ? "Use the equation density = mass / volume. Water displacement gives the object's volume." : currentInstruction}</span>
@@ -122,21 +155,35 @@ export default function StudentHUD({ state, actions, activeLab, onExit }) {
       )}
 
       {(teacherVisible || hintCount > 0) && (
-        <div className="ai-guide-panel">
+        <div className={guideMinimized ? 'ai-guide-panel minimized' : 'ai-guide-panel'}>
           <img src="./DLS_Teacher.png" alt="DLS AI Teacher" className="ai-guide-teacher" />
           <div className="ai-guide-window">
-            <div className="ai-guide-controls" aria-hidden="true">
-              <Minus size={24} />
-              <X size={24} />
+            <div className="ai-guide-controls">
+              <button type="button" aria-label={guideMinimized ? 'Expand AI Teacher guide' : 'Minimize AI Teacher guide'} onClick={() => setGuideMinimized((value) => !value)}>
+                {guideMinimized ? <Maximize2 size={22} /> : <Minus size={24} />}
+              </button>
+              <button type="button" aria-label="Close AI Teacher guide" onClick={() => { actions.setTeacherVisible(false); setGuideMinimized(false); }}>
+                <X size={24} />
+              </button>
             </div>
-            <div className="ai-guide-copy">
-              <span>AI Teacher</span>
-              <strong>{aiMessage}</strong>
-            </div>
-            <button type="button" className="ai-guide-continue" onClick={() => actions.setHintCount(hintCount + 1)}>
-              Continue
-              <ArrowRight size={22} />
-            </button>
+            {!guideMinimized && (
+              <>
+                <div className="ai-guide-copy">
+                  <span>AI Teacher</span>
+                  <strong>{visibleGuidePrompt}</strong>
+                </div>
+                <button type="button" className="ai-guide-continue" onClick={continueGuide}>
+                  Continue
+                  <ArrowRight size={22} />
+                </button>
+              </>
+            )}
+            {guideMinimized && (
+              <button type="button" className="ai-guide-mini-copy" onClick={() => setGuideMinimized(false)}>
+                <span>AI Teacher</span>
+                <strong>{visibleGuidePrompt}</strong>
+              </button>
+            )}
           </div>
         </div>
       )}

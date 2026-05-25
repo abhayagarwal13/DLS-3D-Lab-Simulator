@@ -160,7 +160,7 @@ export default function App() {
     <main className="app-shell">
       <LabScene state={state} actions={actions} activeLab={activeLab} />
       <StudentHUD state={state} actions={actions} activeLab={activeLab} onExit={() => setScreen('home')} />
-      <div className="dls-labs-badge">DLS LABS</div>
+      <div className={teacherVisible ? 'dls-labs-badge guide-open' : 'dls-labs-badge'}>DLS LABS</div>
       {reportOpen && <LabReport state={state} actions={actions} />}
     </main>
   );
