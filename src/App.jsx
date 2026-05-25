@@ -66,6 +66,7 @@ export default function App() {
   const [screen, setScreen] = useState('home');
   const [activeLabId, setActiveLabId] = useState('density-lab');
   const [selectedObject, setSelectedObject] = useState('aluminum');
+  const [sampleChosen, setSampleChosen] = useState(false);
   const [weighed, setWeighed] = useState(false);
   const [submerged, setSubmerged] = useState(false);
   const [teacherVisible, setTeacherVisible] = useState(true);
@@ -79,15 +80,12 @@ export default function App() {
   const activeLab = labCatalog.find((lab) => lab.id === activeLabId) ?? labCatalog[0];
   const density = weighed && submerged ? sample.mass / sample.volume : null;
   const score = useMemo(() => {
-    let value = 15;
-    if (selectedObject) value += 20;
-    if (weighed) value += 25;
-    if (submerged) value += 25;
-    if (density) value += 15;
-    return Math.min(value, 100);
-  }, [density, selectedObject, submerged, weighed]);
+    const completedSteps = [sampleChosen, weighed, submerged, Boolean(density)].filter(Boolean).length;
+    return Math.round((completedSteps / 4) * 100);
+  }, [density, sampleChosen, submerged, weighed]);
 
   const resetLab = () => {
+    setSampleChosen(false);
     setWeighed(false);
     setSubmerged(false);
     setSamplePlacement('tray');
@@ -100,11 +98,13 @@ export default function App() {
   const chooseObject = (id) => {
     setSelectedObject((currentId) => {
       if (currentId !== id) {
+        setSampleChosen(true);
         setWeighed(false);
         setSubmerged(false);
         setSamplePlacement('tray');
         setReportOpen(false);
       }
+      setSampleChosen(true);
       return id;
     });
   };
@@ -113,6 +113,7 @@ export default function App() {
     objects,
     sample,
     selectedObject,
+    sampleChosen,
     weighed,
     submerged,
     teacherVisible,
@@ -127,6 +128,7 @@ export default function App() {
 
   const actions = {
     setSelectedObject: chooseObject,
+    setSampleChosen,
     setWeighed,
     setSubmerged,
     setTeacherVisible,
@@ -141,6 +143,10 @@ export default function App() {
 
   const openLab = (labId) => {
     setActiveLabId(labId);
+    setSampleChosen(false);
+    setWeighed(false);
+    setSubmerged(false);
+    setSamplePlacement('tray');
     setModuleStep(0);
     setHintCount(0);
     setTeacherVisible(true);

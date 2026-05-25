@@ -231,10 +231,12 @@ export default function DensityStation({ state, actions }) {
     const toScale = position.distanceTo(scaleTarget);
     const toTank = position.distanceTo(tankTarget);
     if (toScale < 0.72) {
+      actions.setSampleChosen(true);
       actions.setWeighed(true);
       actions.setSamplePlacement('scale');
     }
     if (toTank < 0.82) {
+      actions.setSampleChosen(true);
       actions.setSubmerged(true);
       actions.setSamplePlacement('tank');
     }
@@ -308,6 +310,7 @@ export default function DensityStation({ state, actions }) {
         sample={sample}
         onClick={(event) => {
           event.stopPropagation();
+          actions.setSampleChosen(true);
           actions.setWeighed(true);
           actions.setSamplePlacement('scale');
         }}
@@ -318,6 +321,7 @@ export default function DensityStation({ state, actions }) {
         sample={sample}
         onClick={(event) => {
           event.stopPropagation();
+          actions.setSampleChosen(true);
           actions.setSubmerged(true);
           actions.setSamplePlacement('tank');
         }}

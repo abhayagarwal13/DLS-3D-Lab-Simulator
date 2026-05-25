@@ -2502,3 +2502,160 @@ button {
 .hint-toast:has(+ .ai-guide-panel.minimized) {
   bottom: 126px;
 }
+
+
+/* Premium DLS side panels */
+.objective-panel,
+.steps-panel {
+  border: 1px solid rgba(139, 229, 255, 0.2);
+  background:
+    linear-gradient(135deg, rgba(9, 26, 35, 0.92), rgba(10, 42, 49, 0.78)),
+    radial-gradient(circle at 12% 0%, rgba(116, 230, 255, 0.24), transparent 34%),
+    radial-gradient(circle at 92% 16%, rgba(255, 197, 82, 0.16), transparent 28%);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(22px) saturate(1.18);
+}
+
+.objective-panel::before,
+.steps-panel::before {
+  height: 5px;
+  background: linear-gradient(90deg, #08baa7 0%, #43b7ff 42%, #ffd05a 100%);
+  box-shadow: 0 0 24px rgba(67, 183, 255, 0.58);
+}
+
+.objective-panel::after,
+.steps-panel::after {
+  right: -56px;
+  top: -52px;
+  width: 190px;
+  height: 190px;
+  background:
+    radial-gradient(circle, rgba(116, 230, 255, 0.16), transparent 62%),
+    conic-gradient(from 40deg, rgba(8, 186, 167, 0.18), rgba(67, 183, 255, 0.06), rgba(255, 208, 90, 0.14), rgba(8, 186, 167, 0.18));
+  opacity: 0.9;
+}
+
+.objective-panel h1,
+.steps-panel h2 {
+  color: #f4fdff;
+  text-shadow: 0 0 24px rgba(116, 230, 255, 0.2);
+}
+
+.objective-panel p {
+  color: #c8dfe6;
+}
+
+.progress-block {
+  border: 1px solid rgba(116, 230, 255, 0.18);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04)),
+    radial-gradient(circle at 6% 12%, rgba(116, 230, 255, 0.16), transparent 40%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 14px 36px rgba(0, 0, 0, 0.16);
+}
+
+.progress-block > span {
+  color: #95e7ff;
+  font-weight: 1000;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.progress-block > strong {
+  color: #ffffff;
+  font-size: 20px;
+  text-shadow: 0 0 18px rgba(116, 230, 255, 0.34);
+}
+
+.progress-track {
+  height: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(2, 10, 16, 0.52);
+}
+
+.progress-track div {
+  background: linear-gradient(90deg, #08baa7, #33a9ff 52%, #ffd05a);
+  box-shadow: 0 0 26px rgba(67, 183, 255, 0.56), inset 0 1px 0 rgba(255,255,255,.34);
+}
+
+.instruction-callout {
+  border-color: rgba(255, 208, 90, 0.2);
+  background:
+    linear-gradient(135deg, rgba(255, 208, 90, 0.13), rgba(116, 230, 255, 0.08)),
+    rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.instruction-callout span {
+  color: #ffd05a;
+}
+
+.metrics-grid div,
+.step {
+  border-color: rgba(143, 226, 255, 0.13);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.1), rgba(255,255,255,.045)),
+    rgba(4, 16, 24, 0.34);
+}
+
+.metrics-grid strong {
+  color: #ffffff;
+}
+
+.step {
+  grid-template-columns: 28px 1fr;
+  min-height: 44px;
+  color: #d8eef5;
+}
+
+.step span {
+  width: 21px;
+  height: 21px;
+  border-color: rgba(116, 230, 255, 0.34);
+  background: rgba(3, 15, 23, 0.42);
+}
+
+.step.done {
+  color: #f5fff2;
+  background:
+    linear-gradient(135deg, rgba(8, 186, 167, 0.28), rgba(149, 230, 125, 0.14)),
+    rgba(255,255,255,.05);
+  border-color: rgba(149, 230, 125, 0.45);
+  box-shadow: 0 0 26px rgba(8, 186, 167, 0.12), inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+.step.done span {
+  background: linear-gradient(135deg, #95e67d, #72e6ff);
+  border-color: transparent;
+  color: #071015;
+  box-shadow: 0 0 18px rgba(149, 230, 125, 0.42);
+}
+
+.steps-panel button {
+  min-height: 44px;
+  border: 1px solid rgba(116, 230, 255, 0.16);
+  color: #06161c;
+  background: linear-gradient(135deg, #72e6ff, #95e67d);
+  box-shadow: 0 16px 34px rgba(33, 180, 220, 0.22);
+  font-weight: 900;
+}
+
+.steps-panel button.secondary {
+  border-color: rgba(255,255,255,.14);
+  color: #e7f9ff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hint-toast {
+  border: 1px solid rgba(255, 208, 90, 0.24);
+  background:
+    linear-gradient(135deg, rgba(20, 31, 39, 0.94), rgba(26, 54, 53, 0.9)),
+    radial-gradient(circle at 0 0, rgba(255, 208, 90, 0.18), transparent 40%);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+.hint-toast strong {
+  color: #ffd05a;
+}

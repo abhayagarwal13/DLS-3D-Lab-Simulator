@@ -2,13 +2,13 @@ import { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, ArrowRight, Atom, ClipboardCheck, Lightbulb, Maximize2, Minus, RefreshCw, UserRoundPlus, X } from 'lucide-react';
 
 export default function StudentHUD({ state, actions, activeLab, onExit }) {
-  const { sample, weighed, submerged, density, score, teacherVisible, hintCount, moduleStep } = state;
+  const { sample, sampleChosen, weighed, submerged, density, score, teacherVisible, hintCount, moduleStep } = state;
   const [guideMinimized, setGuideMinimized] = useState(false);
   const [guideStep, setGuideStep] = useState(0);
   const isDensityLab = activeLab?.id === 'density-lab';
   const moduleSteps = activeLab?.steps ?? [];
   const steps = isDensityLab ? [
-    { label: 'Choose a sample', done: Boolean(sample) },
+    { label: 'Choose a sample', done: sampleChosen },
     { label: 'Drag sample to digital scale', done: weighed },
     { label: 'Drag sample into water tank', done: submerged },
     { label: 'Calculate density', done: Boolean(density) },
@@ -31,9 +31,10 @@ export default function StudentHUD({ state, actions, activeLab, onExit }) {
   const guidePrompts = useMemo(() => {
     if (isDensityLab) {
       return [
-        'Hi, I am your AI Teacher. Pick one sample, then drag it onto the digital scale.',
-        weighed ? 'Good mass measurement. Now drag that same sample into the water tank.' : 'The digital scale will show mass in grams once the sample is on top.',
-        submerged ? 'Great. The water level changed, so now we know the sample volume.' : 'Drop the sample into the tank to measure volume by water displacement.',
+        'Hi, I am your AI Teacher. Pick one sample from the tray to begin.',
+        sampleChosen ? 'Good choice. Now drag ' + sample.label + ' onto the digital scale.' : 'Click or drag a sample so we know which material you are testing.',
+        weighed ? 'Mass measured. Now drag that same sample into the water tank.' : 'The digital scale will show mass in grams once the sample is on top.',
+        submerged ? 'Volume measured by displacement. Now compare mass divided by volume.' : 'Drop the sample into the tank to measure volume by water displacement.',
         density ? 'Final result: ' + sample.label + ' has a density of ' + density.toFixed(2) + ' g/mL.' : 'Once mass and volume are measured, the density calculation will appear automatically.',
       ];
     }
@@ -43,7 +44,7 @@ export default function StudentHUD({ state, actions, activeLab, onExit }) {
       moduleStep >= moduleSteps.length ? 'You completed the hands-on sequence. Now explain what changed and why.' : 'Next step: ' + moduleSteps[moduleStep] + '. Use the floating action button in the 3D scene.',
       activeLab?.objective ?? 'Watch the model closely, then explain the science idea in your own words.',
     ];
-  }, [activeLab?.objective, activeLab?.title, density, isDensityLab, moduleStep, moduleSteps, sample.label, submerged, weighed]);
+  }, [activeLab?.objective, activeLab?.title, density, isDensityLab, moduleStep, moduleSteps, sample.label, sampleChosen, submerged, weighed]);
   const visibleGuidePrompt = guidePrompts[Math.min(guideStep, guidePrompts.length - 1)] ?? aiMessage;
   const continueGuide = () => {
     setGuideStep((step) => (step < guidePrompts.length - 1 ? step + 1 : 0));
@@ -56,8 +57,14 @@ export default function StudentHUD({ state, actions, activeLab, onExit }) {
   }, [activeLab?.id]);
 
   useEffect(() => {
+    if (isDensityLab) {
+      const nextStep = density ? 4 : submerged ? 3 : weighed ? 2 : sampleChosen ? 1 : 0;
+      setGuideStep(nextStep);
+      return;
+    }
+
     setGuideStep(0);
-  }, [density, moduleStep, submerged, weighed]);
+  }, [density, isDensityLab, moduleStep, sampleChosen, submerged, weighed]);
 
   return (
     <section className="hud">
