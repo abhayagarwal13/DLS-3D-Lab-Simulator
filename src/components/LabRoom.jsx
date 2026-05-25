@@ -471,7 +471,7 @@ function LabThemeDetails({ lab }) {
 }
 
 export default function LabRoom({ lab }) {
-  const floor = useTexture('/textures/floor-grid.svg');
+  const floor = useTexture('./textures/floor-grid.svg');
   floor.wrapS = THREE.RepeatWrapping;
   floor.wrapT = THREE.RepeatWrapping;
   floor.repeat.set(6, 5);
