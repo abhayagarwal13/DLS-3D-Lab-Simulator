@@ -2139,3 +2139,254 @@ button {
     font-size: 18px;
   }
 }
+
+
+/* Homepage 3D lab-table vignette */
+.home-3d-preview {
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 28% 22%, rgba(255, 255, 255, 0.82), transparent 24%),
+    linear-gradient(150deg, rgba(242, 254, 255, 0.94), rgba(231, 250, 247, 0.78) 48%, rgba(255, 245, 222, 0.72));
+}
+
+.home-3d-preview .stage-grid {
+  bottom: -112px;
+  height: 310px;
+  opacity: 0.72;
+  transform: rotateX(66deg) translateZ(-20px);
+}
+
+.home-lab-room-depth {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  perspective: 980px;
+}
+
+.home-back-wall {
+  position: absolute;
+  left: 16%;
+  right: 16%;
+  top: 58px;
+  height: 94px;
+  border: 1px solid rgba(8, 186, 167, 0.18);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.7), rgba(224, 250, 251, 0.28));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.65), 0 24px 70px rgba(31, 80, 105, 0.08);
+  transform: translateZ(-70px);
+}
+
+.home-back-wall span {
+  position: absolute;
+  left: 26px;
+  top: 22px;
+  color: rgba(8, 122, 114, 0.22);
+  font-size: 26px;
+  font-weight: 1000;
+  letter-spacing: 0;
+}
+
+.home-3d-table {
+  position: absolute;
+  left: 9%;
+  right: 8%;
+  bottom: 94px;
+  height: 214px;
+  transform: rotateX(56deg) rotateZ(-1deg) translateZ(18px);
+  transform-style: preserve-3d;
+}
+
+.home-table-top {
+  position: absolute;
+  inset: 22px 0 68px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #172b34, #07151c 58%, #1e343e);
+  box-shadow: 0 38px 70px rgba(7, 21, 28, 0.26), inset 0 1px 0 rgba(255,255,255,.12);
+  transform: translateZ(28px);
+}
+
+.home-table-shine {
+  position: absolute;
+  left: 6%;
+  right: 8%;
+  top: 14px;
+  height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(116, 230, 255, 0.22), transparent);
+}
+
+.home-table-front {
+  position: absolute;
+  left: 1%;
+  right: 1%;
+  bottom: 45px;
+  height: 54px;
+  border-radius: 0 0 8px 8px;
+  background: linear-gradient(180deg, #0b1c24, #061018);
+  box-shadow: 0 24px 46px rgba(2, 8, 12, 0.28);
+  transform: rotateX(-90deg) translateZ(28px);
+  transform-origin: top center;
+}
+
+.home-table-leg {
+  position: absolute;
+  bottom: -26px;
+  width: 30px;
+  height: 132px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #8fa1aa, #4e6570);
+  box-shadow: 0 18px 24px rgba(8, 28, 37, 0.18);
+  transform: rotateX(-56deg) translateZ(-4px);
+}
+
+.home-table-leg.left {
+  left: 15%;
+}
+
+.home-table-leg.right {
+  right: 15%;
+}
+
+.home-tool {
+  position: absolute;
+  z-index: 3;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 18px 16px rgba(5, 20, 28, 0.2));
+}
+
+.microscope-tool {
+  left: 22%;
+  top: -16px;
+  width: 150px;
+  height: 150px;
+  transform: rotateX(-56deg) rotateY(-18deg) translateZ(68px);
+}
+
+.scope-base,
+.scope-stage,
+.scope-arm,
+.scope-neck,
+.scope-lens {
+  position: absolute;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #f7fbfd, #b8c8d2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 14px 22px rgba(18, 44, 58, 0.16);
+}
+
+.scope-base {
+  left: 18px;
+  bottom: 18px;
+  width: 94px;
+  height: 18px;
+  background: linear-gradient(145deg, #111f28, #314a56);
+}
+
+.scope-stage {
+  left: 42px;
+  bottom: 53px;
+  width: 58px;
+  height: 12px;
+  background: linear-gradient(145deg, #253a45, #0c1921);
+}
+
+.scope-arm {
+  left: 66px;
+  bottom: 38px;
+  width: 20px;
+  height: 82px;
+  border-radius: 999px;
+  transform: rotate(-24deg);
+}
+
+.scope-neck {
+  left: 88px;
+  top: 28px;
+  width: 18px;
+  height: 54px;
+  border-radius: 999px;
+  transform: rotate(-48deg);
+  background: linear-gradient(145deg, #dfeaf0, #7e939d);
+}
+
+.scope-lens {
+  left: 108px;
+  top: 16px;
+  width: 38px;
+  height: 26px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #101b22, #314a56);
+}
+
+.beaker-tool {
+  right: 23%;
+  top: -20px;
+  width: 150px;
+  height: 154px;
+  transform: rotateX(-56deg) rotateY(18deg) translateZ(74px);
+}
+
+.beaker-glass {
+  position: absolute;
+  left: 28px;
+  top: 8px;
+  display: grid;
+  width: 96px;
+  height: 126px;
+  place-items: center;
+  overflow: hidden;
+  border: 4px solid rgba(128, 230, 238, 0.72);
+  border-top-width: 7px;
+  border-radius: 8px 8px 18px 18px;
+  color: rgba(10, 52, 64, 0.82);
+  background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(215,251,255,.3));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 18px 30px rgba(7, 51, 64, 0.16);
+}
+
+.beaker-liquid {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 9px;
+  height: 46%;
+  border-radius: 6px 6px 13px 13px;
+  background: linear-gradient(180deg, rgba(64, 201, 242, 0.64), rgba(8, 186, 167, 0.72));
+}
+
+.beaker-glass svg {
+  position: relative;
+  z-index: 1;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.home-3d-preview .preview-lightbar {
+  left: 24%;
+  right: 24%;
+  top: 168px;
+  height: 8px;
+  opacity: 0.82;
+}
+
+@media (max-width: 760px) {
+  .home-3d-table {
+    left: -4%;
+    right: -4%;
+    bottom: 58px;
+    transform: scale(0.78) rotateX(56deg) rotateZ(-1deg) translateZ(18px);
+    transform-origin: bottom center;
+  }
+
+  .home-back-wall {
+    left: 10%;
+    right: 10%;
+    top: 36px;
+  }
+
+  .microscope-tool {
+    left: 15%;
+  }
+
+  .beaker-tool {
+    right: 16%;
+  }
+}

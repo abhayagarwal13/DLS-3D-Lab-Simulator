@@ -1,8 +1,6 @@
 import {
   ArrowRight,
-  Atom,
   Beaker,
-  Droplets,
   FlaskConical,
   Gauge,
   Rocket,
@@ -51,31 +49,33 @@ export default function HomePage({ labs, onOpenLab }) {
           </div>
         </div>
 
-        <div className="lab-preview-stage" aria-hidden="true">
+        <div className="lab-preview-stage home-3d-preview" aria-hidden="true">
           <div className="stage-grid" />
-          <div className="preview-panel panel-objective">
-            <span>Objective</span>
-            <strong>Measure. Observe. Explain.</strong>
-          </div>
-          <div className="preview-panel panel-score">
-            <span>Progress</span>
-            <strong>87%</strong>
-          </div>
-          <div className="preview-bench">
-            <div className="bench-top" />
-            <div className="bench-leg left" />
-            <div className="bench-leg right" />
-            <div className="preview-scale"><Gauge size={22} /></div>
-            <div className="preview-tank">
-              <div className="preview-water" />
-              <Droplets size={24} />
+          <div className="home-lab-room-depth">
+            <div className="home-back-wall">
+              <span>DLS LABS</span>
             </div>
-            <div className="preview-beaker"><Beaker size={26} /></div>
-          </div>
-          <div className="preview-teacher">
-            <div className="teacher-head" />
-            <div className="teacher-body"><Atom size={22} /></div>
-            <div className="teacher-label">AI Teacher</div>
+            <div className="home-3d-table">
+              <div className="home-table-top">
+                <div className="home-table-shine" />
+              </div>
+              <div className="home-table-front" />
+              <div className="home-table-leg left" />
+              <div className="home-table-leg right" />
+              <div className="home-tool microscope-tool">
+                <div className="scope-base" />
+                <div className="scope-arm" />
+                <div className="scope-neck" />
+                <div className="scope-lens" />
+                <div className="scope-stage" />
+              </div>
+              <div className="home-tool beaker-tool">
+                <div className="beaker-glass">
+                  <div className="beaker-liquid" />
+                  <Beaker size={34} />
+                </div>
+              </div>
+            </div>
           </div>
           <div className="preview-lightbar" />
         </div>
